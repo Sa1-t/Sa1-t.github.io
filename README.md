@@ -32,4 +32,4 @@
 
 感謝您的訪問！
 
-此文件檔案使用 Copliot 和 deepseek 輔助生成和 debug
+此文件使用 Copliot 和 deepseek 輔助
