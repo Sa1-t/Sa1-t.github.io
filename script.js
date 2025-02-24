@@ -102,37 +102,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     document.addEventListener("keydown", (event) => {
-        switch (event.key) {
-            case "ArrowUp": move("up"); break;
-            case "ArrowDown": move("down"); break;
-            case "ArrowLeft": move("left"); break;
-            case "ArrowRight": move("right"); break;
-        }
+        const keyMap = { "ArrowUp": "up", "ArrowDown": "down", "ArrowLeft": "left", "ArrowRight": "right" };
+        if (keyMap[event.key]) move(keyMap[event.key]);
     });
 
     restartButton.addEventListener("click", initGame);
-
     initGame();
-});
-let startX, startY, endX, endY;
-
-document.addEventListener("touchstart", (e) => {
-    startX = e.touches[0].clientX;
-    startY = e.touches[0].clientY;
-});
-
-document.addEventListener("touchend", (e) => {
-    endX = e.changedTouches[0].clientX;
-    endY = e.changedTouches[0].clientY;
-
-    let dx = endX - startX;
-    let dy = endY - startY;
-
-    if (Math.abs(dx) > Math.abs(dy)) {
-        if (dx > 0) moveRight();
-        else moveLeft();
-    } else {
-        if (dy > 0) moveDown();
-        else moveUp();
-    }
 });
