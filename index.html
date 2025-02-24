@@ -1,120 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="./images/title icon.png" />
-    <link rel="stylesheet" href="style.css" />
-    <script src="script.js" defer></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    />
-    <title>Sa//t</title>
-  </head>
-  <body>
-    <nav>
-      <div class="logo">Sa//t</div>
-      <ul>
-        <li>
-          <a href="index.html" aria-label="Home">
-            <svg
-              class="icon"
-              width="16"
-              height="16"
-              fill="currentColor"
-              class="bi bi-house-door"
-              viewBox="0 0 16 16"
-            >
-              <path
-                d="M8 3.293l5 5V13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8.293l5-5zM8 0l6 6v7a2 2 0 0 0 2 2H2a2 2 0 0 0 2-2V6l6-6z"
-              />
-            </svg>
-            Home
-          </a>
-        </li>
-        <li>
-          <a href="#" aria-label="About">
-            <svg
-              class="icon"
-              width="16"
-              height="16"
-              fill="currentColor"
-              class="bi bi-info-circle"
-              viewBox="0 0 16 16"
-            >
-              <path
-                d="M8 3.5a4.5 4.5 0 1 1 0 9a4.5 4.5 0 0 1 0-9zM8 0a8 8 0 1 0 0 16a8 8 0 0 0 0-16z"
-              />
-            </svg>
-            About
-          </a>
-        </li>
-        <li>
-          <a href="#" aria-label="DoList">
-            <svg
-              class="icon"
-              width="16"
-              height="16"
-              fill="currentColor"
-              class="bi bi-briefcase"
-              viewBox="0 0 16 16"
-            >
-              <path
-                d="M3.5 0a.5.5 0 0 0-.5.5V1h-1A2.5 2.5 0 0 0 0 3.5v9A2.5 2.5 0 0 0 1.5 15h13a2.5 2.5 0 0 0 1.5-2.5v-9A2.5 2.5 0 0 0 14 1h-1V.5a.5.5 0 0 0-.5-.5h-10zM1 3a1.5 1.5 0 0 1 1.5-1.5h1V2h9V1.5h1A1.5 1.5 0 0 1 15 3v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 1 12V3z"
-              />
-            </svg>
-            DoList
-          </a>
-        </li>
-      </ul>
-    </nav>
-    <section>
-      <div class="main-image-container">
-        <img
-          src="./images/abotMe.png"
-          alt="About Me"
-          class="main-image"
-          loading="lazy"
-        />
-      </div>
-      <div class="image-gallery">
-        <a
-          href="https://discordapp.com/users/926764950779727903"
-          class="icon-link"
-          target="_blank"
-          aria-label="Discord"
-        >
-          <i class="fab fa-discord"></i>
-        </a>
-        <a
-          href="https://www.instagram.com/nothing0_ob/"
-          class="icon-link"
-          target="_blank"
-          aria-label="Instagram"
-        >
-          <i class="fab fa-instagram"></i>
-        </a>
-        <a
-          href="https://github.com/Sa1-t"
-          class="icon-link"
-          target="_blank"
-          aria-label="GitHub"
-        >
-          <i class="fab fa-github"></i>
-        </a>
-        <a
-          href="https://steamcommunity.com/profiles/76561199810575072/"
-          class="icon-link"
-          target="_blank"
-          aria-label="Steam"
-        >
-          <i class="fab fa-steam"></i>
-        </a>
-      </div>
-    </section>
-    <div class="status-container">
-      <div class="status-text" id="status-text" aria-live="polite"></div>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2048 遊戲</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>2048 遊戲</h1>
+    <p>使用方向鍵（← ↑ → ↓）移動數字</p>
+    <div id="game-container">
+        <div id="board"></div>
     </div>
-  </body>
+    <p>分數：<span id="score">0</span></p>
+    <button id="restart">重新開始</button>
+    <script src="script.js"></script>
+</body>
 </html>
