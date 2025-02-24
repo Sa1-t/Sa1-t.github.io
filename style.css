@@ -62,3 +62,21 @@ h1 {
 #restart:hover {
     background-color: #7c6a58;
 }
+.game-container {
+    width: 90vw;  /* 讓遊戲寬度根據螢幕大小調整 */
+    max-width: 400px; /* 但不超過 400px，確保電腦上不會太大 */
+    margin: auto; /* 讓遊戲置中 */
+}
+
+.tile {
+    font-size: calc(2vw + 10px); /* 讓數字大小隨螢幕變化 */
+}
+@media (max-width: 600px) {
+    .game-container {
+        width: 95vw;
+    }
+
+    .tile {
+        font-size: calc(3vw + 10px); /* 在小螢幕上讓字更大 */
+    }
+}
