@@ -1,48 +1,261 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
-<head>
-    <meta charset="utf-8">
-    <title>Auto Redirect</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        img {
-            width: 90%;
-            max-width: 800px;
-            animation: zoomIn 2s ease forwards;
-            border-radius: 12px;
-        }
-        @keyframes zoomIn {
-            0% {
-                transform: scale(0.8);
-                opacity: 0;
+<html lang="zh-TW">
+    <head>
+        <meta charset="UTF-8" />
+        <title>2048 ASCII 版（手機滑動+鍵盤操作）</title>
+        <style>
+            body {
+                background-color: black;
+                color: #cccccc;
+                font-family: monospace;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+                margin: 0;
+                user-select: none;
+                -webkit-user-select: none;
+                -webkit-touch-callout: none;
             }
-            100% {
-                transform: scale(1);
-                opacity: 1;
+            pre {
+                line-height: 1.2;
+                font-size: 20px;
+                margin: 0;
             }
-        }
-    </style>
-</head>
-<body>
+            #score {
+                margin-bottom: 10px;
+                font-size: 22px;
+            }
+            #message {
+                margin-top: 10px;
+                color: #ff6666;
+                font-weight: bold;
+                white-space: pre-wrap;
+                text-align: center;
+            }
+            #restart-btn {
+                margin-top: 10px;
+                width: 190px;
+                background: black;
+                color: #ccc;
+                font-family: monospace;
+                font-size: 20px;
+                cursor: pointer;
+                padding: 10px 0;
+                user-select: none;
+                border: none; /* 改這裡，移除邊框 */
+            }
+            #restart-btn:active {
+                background: #333;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="score">分數：0</div>
+        <pre id="board"></pre>
+        <div id="message">
+            用方向鍵或滑動操作，遊戲結束後按「R」或下方按鈕重新開始。
+        </div>
+        <button id="restart-btn">重新啟動 (R)</button>
 
-    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
-        <img src="images/uwu.png" alt="Redirect Image">
-    </a>
+        <script>
+            const size = 4;
+            let board;
+            let score;
+            let gameOver;
 
-    <script>
-        setTimeout(function() {
-            window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
-        }, 2000);
-    </script>
+            function init() {
+                board = [
+                    [0, 0, 0, 0],
+                    [0, 0, 0, 0],
+                    [0, 0, 0, 0],
+                    [0, 0, 0, 0],
+                ];
+                score = 0;
+                gameOver = false;
+                addRandom();
+                addRandom();
+                document.getElementById("message").textContent =
+                    "用方向鍵或滑動操作，遊戲結束後按「R」或下方按鈕重新開始。";
+                drawBoard();
+            }
 
-</body>
+            function drawBoard() {
+                let lines = [];
+                const horizontalLine = "+----".repeat(size) + "+";
+                lines.push(horizontalLine);
+                for (let i = 0; i < size; i++) {
+                    let rowLine = "|";
+                    for (let j = 0; j < size; j++) {
+                        let val =
+                            board[i][j] === 0
+                                ? "    "
+                                : board[i][j].toString().padStart(4, " ");
+                        rowLine += val + "|";
+                    }
+                    lines.push(rowLine);
+                    lines.push(horizontalLine);
+                }
+                document.getElementById("board").textContent = lines.join("\n");
+                document.getElementById("score").textContent = "分數：" + score;
+            }
+
+            function slide(row) {
+                let arr = row.filter((v) => v !== 0);
+                for (let i = 0; i < arr.length - 1; i++) {
+                    if (arr[i] === arr[i + 1]) {
+                        arr[i] *= 2;
+                        score += arr[i];
+                        arr[i + 1] = 0;
+                        i++;
+                    }
+                }
+                arr = arr.filter((v) => v !== 0);
+                while (arr.length < size) arr.push(0);
+                return arr;
+            }
+
+            function moveLeft() {
+                for (let i = 0; i < size; i++) {
+                    board[i] = slide(board[i]);
+                }
+            }
+
+            function moveRight() {
+                for (let i = 0; i < size; i++) {
+                    board[i] = slide(board[i].slice().reverse()).reverse();
+                }
+            }
+
+            function transpose(mat) {
+                let newMat = [];
+                for (let i = 0; i < size; i++) {
+                    newMat[i] = [];
+                    for (let j = 0; j < size; j++) {
+                        newMat[i][j] = mat[j][i];
+                    }
+                }
+                return newMat;
+            }
+
+            function moveUp() {
+                board = transpose(board);
+                moveLeft();
+                board = transpose(board);
+            }
+
+            function moveDown() {
+                board = transpose(board);
+                moveRight();
+                board = transpose(board);
+            }
+
+            function addRandom() {
+                let empties = [];
+                for (let i = 0; i < size; i++) {
+                    for (let j = 0; j < size; j++) {
+                        if (board[i][j] === 0) empties.push([i, j]);
+                    }
+                }
+                if (empties.length === 0) return false;
+                let [x, y] =
+                    empties[Math.floor(Math.random() * empties.length)];
+                board[x][y] = 2;
+                return true;
+            }
+
+            function canMove() {
+                for (let i = 0; i < size; i++) {
+                    for (let j = 0; j < size; j++) {
+                        if (board[i][j] === 0) return true;
+                    }
+                }
+                for (let i = 0; i < size; i++) {
+                    for (let j = 0; j < size - 1; j++) {
+                        if (board[i][j] === board[i][j + 1]) return true;
+                    }
+                }
+                for (let j = 0; j < size; j++) {
+                    for (let i = 0; i < size - 1; i++) {
+                        if (board[i][j] === board[i + 1][j]) return true;
+                    }
+                }
+                return false;
+            }
+
+            function checkGameOver() {
+                if (!canMove()) {
+                    gameOver = true;
+                    document.getElementById("message").textContent =
+                        "遊戲結束！按「R」或下方「重新啟動」重新開始。";
+                }
+            }
+
+            function doMove(direction) {
+                if (gameOver) return;
+                let oldBoard = JSON.stringify(board);
+                if (direction === "left") moveLeft();
+                else if (direction === "right") moveRight();
+                else if (direction === "up") moveUp();
+                else if (direction === "down") moveDown();
+
+                if (JSON.stringify(board) !== oldBoard) {
+                    if (!addRandom()) checkGameOver();
+                    drawBoard();
+                    checkGameOver();
+                }
+            }
+
+            document.addEventListener("keydown", (e) => {
+                if (gameOver) {
+                    if (e.key.toLowerCase() === "r") {
+                        init();
+                    }
+                    return;
+                }
+                if (e.key === "ArrowLeft") doMove("left");
+                else if (e.key === "ArrowRight") doMove("right");
+                else if (e.key === "ArrowUp") doMove("up");
+                else if (e.key === "ArrowDown") doMove("down");
+            });
+
+            document
+                .getElementById("restart-btn")
+                .addEventListener("click", () => {
+                    init();
+                });
+
+            // 手指滑動偵測
+            let touchStartX = 0;
+            let touchStartY = 0;
+            let touchEndX = 0;
+            let touchEndY = 0;
+
+            document.addEventListener("touchstart", (e) => {
+                const touch = e.changedTouches[0];
+                touchStartX = touch.screenX;
+                touchStartY = touch.screenY;
+            });
+
+            document.addEventListener("touchend", (e) => {
+                const touch = e.changedTouches[0];
+                touchEndX = touch.screenX;
+                touchEndY = touch.screenY;
+
+                let diffX = touchEndX - touchStartX;
+                let diffY = touchEndY - touchStartY;
+
+                if (Math.abs(diffX) > Math.abs(diffY)) {
+                    if (diffX > 30) doMove("right");
+                    else if (diffX < -30) doMove("left");
+                } else {
+                    if (diffY > 30) doMove("down");
+                    else if (diffY < -30) doMove("up");
+                }
+            });
+
+            init();
+        </script>
+    </body>
 </html>
