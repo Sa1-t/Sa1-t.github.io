@@ -2,7 +2,7 @@
 <html lang="zh-TW">
     <head>
         <meta charset="UTF-8" />
-        <title>2048 ASCII 版（手機滑動+鍵盤操作）</title>
+        <title>2048 ASCII 版（灰階字體，手機大字體）</title>
         <style>
             body {
                 background-color: black;
@@ -18,14 +18,16 @@
                 -webkit-user-select: none;
                 -webkit-touch-callout: none;
             }
-            pre {
-                line-height: 1.2;
-                font-size: 20px;
-                margin: 0;
+            #board {
+                font-size: 28px;
+                line-height: 1.3;
+                white-space: pre;
+                color: #ccc;
+                user-select: none;
             }
             #score {
                 margin-bottom: 10px;
-                font-size: 22px;
+                font-size: 28px;
             }
             #message {
                 margin-top: 10px;
@@ -40,11 +42,11 @@
                 background: black;
                 color: #ccc;
                 font-family: monospace;
-                font-size: 20px;
+                font-size: 22px;
                 cursor: pointer;
                 padding: 10px 0;
                 user-select: none;
-                border: none; /* 改這裡，移除邊框 */
+                border: none; /* 移除邊框 */
             }
             #restart-btn:active {
                 background: #333;
@@ -53,9 +55,9 @@
     </head>
     <body>
         <div id="score">分數：0</div>
-        <pre id="board"></pre>
+        <div id="board"></div>
         <div id="message">
-            用方向鍵或滑動操作，遊戲結束後按「R」或下方按鈕重新開始。
+            用方向鍵或滑動操作，遊戲結束後按「R」或下方「重新啟動」重新開始。
         </div>
         <button id="restart-btn">重新啟動 (R)</button>
 
@@ -77,27 +79,46 @@
                 addRandom();
                 addRandom();
                 document.getElementById("message").textContent =
-                    "用方向鍵或滑動操作，遊戲結束後按「R」或下方按鈕重新開始。";
+                    "用方向鍵或滑動操作，遊戲結束後按「R」或下方「重新啟動」重新開始。";
                 drawBoard();
             }
 
+            function getColor(val) {
+                if (val === 0) return "#222";
+                const colors = [
+                    "rgb(255, 50, 50)", // 紅
+                    "rgb(50, 50, 255)", // 藍
+                    "rgb(255, 255, 50)", // 黃
+                    "rgb(50, 255, 50)", // 綠
+                    "rgb(255, 255, 255)", // 白
+                ];
+                // 取 log2(val) 後 mod 5 選色
+                let idx = (Math.log2(val) - 1) % colors.length;
+                return colors[idx];
+            }
+
             function drawBoard() {
-                let lines = [];
-                const horizontalLine = "+----".repeat(size) + "+";
-                lines.push(horizontalLine);
+                let html = "";
+                const horizontalLine = "+----".repeat(size) + "+<br>";
+                html += horizontalLine;
                 for (let i = 0; i < size; i++) {
-                    let rowLine = "|";
+                    html += "|";
                     for (let j = 0; j < size; j++) {
-                        let val =
-                            board[i][j] === 0
+                        let val = board[i][j];
+                        let strVal =
+                            val === 0
                                 ? "    "
-                                : board[i][j].toString().padStart(4, " ");
-                        rowLine += val + "|";
+                                : val.toString().padStart(4, " ");
+                        let color = getColor(val);
+                        if (val === 0) {
+                            html += strVal + "|";
+                        } else {
+                            html += `<span style="color:${color}">${strVal}</span>|`;
+                        }
                     }
-                    lines.push(rowLine);
-                    lines.push(horizontalLine);
+                    html += "<br>" + horizontalLine;
                 }
-                document.getElementById("board").textContent = lines.join("\n");
+                document.getElementById("board").innerHTML = html;
                 document.getElementById("score").textContent = "分數：" + score;
             }
 
