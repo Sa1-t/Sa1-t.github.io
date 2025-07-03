@@ -1,6 +1,6 @@
 const el = document.getElementById("typewriter");
 const text =
-    "a senior high school student interested in the field of computer science.";
+    "A senior high school student interested in the field of computer science.";
 let i = 0;
 
 setTimeout(() => {
