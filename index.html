@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content="My Web UwU" />
+        <title>Sa//t</title>
+        <link rel="icon" type="image/png" href="./images/icon.ico" />
+        <link rel="stylesheet" href="style.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&family=Space+Mono:wght@400;700&display=swap"
+            rel="stylesheet"
+        />
+    </head>
+    <body data-theme="dark">
+        <audio id="bgm" loop>
+            <source src="./music/bgm.mp3" type="audio/mpeg" />
+        </audio>
+        <audio id="rick-bgm" loop>
+            <source src="./music/rickroll.mp3" type="audio/mpeg" />
+        </audio>
+
+        <div class="noise-overlay"></div>
+        <div class="ambient-light one"></div>
+        <div class="ambient-light two"></div>
+        <nav class="floating-nav">
+            <div class="logo">Sa//t<span class="dot">.</span></div>
+            <ul class="nav-links">
+                <li><a href="#home" class="active" data-key="nav_home"></a></li>
+                <li><a href="#contact" data-key="nav_contact"></a></li>
+            </ul>
+            <div class="nav-tools">
+                <div class="tool-wrapper">
+                    <button id="music-btn" aria-label="Toggle Music">
+                        <i class="fa-solid fa-music"></i>
+                    </button>
+                    <span id="music-tooltip" class="tooltip"></span>
+                </div>
+                <div class="tool-wrapper">
+                    <button id="lang-btn" aria-label="Switch Language">
+                        <i class="fa-solid fa-globe"></i>
+                    </button>
+                    <span class="tooltip">中文 / English</span>
+                </div>
+                <button id="theme-btn"><i class="fa-solid fa-moon"></i></button>
+            </div>
+        </nav>
+        <section id="home" class="hero-section">
+            <div class="hero-content">
+                <div class="profile-wrapper animate-item">
+                    <img
+                        src="./images/avatar.png"
+                        alt="Avatar"
+                        class="avatar"
+                        onerror="
+                            this.src =
+                                'https://ui-avatars.com/api/?name=Sa//t&background=random&color=fff'
+                        "
+                    />
+                </div>
+                <h1
+                    class="hero-title animate-item"
+                    style="animation-delay: 0.1s"
+                >
+                    <span data-key="greeting"></span>
+                    <span class="highlight">Sa//t</span>
+                </h1>
+                <div
+                    class="code-wrapper animate-item"
+                    style="animation-delay: 0.2s"
+                >
+                    <div class="code-snippet">
+                        <span class="keyword">const</span>
+                        <span class="var">about</span>
+                        <span class="operator">=</span> [<span
+                            class="string"
+                            id="typewriter"
+                        ></span
+                        ><span class="cursor">|</span>];
+                    </div>
+                </div>
+                <p
+                    class="hero-desc animate-item"
+                    style="animation-delay: 0.3s"
+                    data-key="description"
+                ></p>
+                <div
+                    class="social-row animate-item"
+                    style="animation-delay: 0.5s"
+                >
+                    <a
+                        href="https://www.instagram.com/y3n._8/"
+                        class="icon-link"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        ><i class="fa-brands fa-instagram"></i
+                    ></a>
+                    <a
+                        href="https://discord.com/users/926764950779727903"
+                        class="icon-link"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        ><i class="fa-brands fa-discord"></i
+                    ></a>
+                    <a
+                        href="https://github.com/Sa1-t"
+                        class="icon-link"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        ><i class="fa-brands fa-github"></i
+                    ></a>
+                    <a href="#" class="icon-link" id="rick-roll-btn"
+                        ><i class="fa-solid fa-shoe-prints"></i
+                    ></a>
+                </div>
+            </div>
+        </section>
+        <section id="contact" class="contact-section scroll-hidden">
+            <div class="container">
+                <h2 class="section-title" data-key="contact_title"></h2>
+                <p class="section-sub" data-key="contact_sub"></p>
+                <form
+                    action="https://formspree.io/f/mpqqprej"
+                    method="POST"
+                    class="contact-form"
+                >
+                    <div class="form-group">
+                        <input
+                            type="text"
+                            name="name"
+                            required
+                            placeholder=" "
+                        /><label data-key="form_name"></label>
+                    </div>
+                    <div class="form-group">
+                        <input
+                            type="email"
+                            name="email"
+                            required
+                            placeholder=" "
+                        /><label data-key="form_email"></label>
+                    </div>
+                    <div class="form-group">
+                        <textarea
+                            name="message"
+                            rows="5"
+                            required
+                            placeholder=" "
+                        ></textarea
+                        ><label data-key="form_message"></label>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        <span data-key="form_send"></span
+                        ><i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </section>
+        <script src="script.js"></script>
+    </body>
+</html>
+
+
