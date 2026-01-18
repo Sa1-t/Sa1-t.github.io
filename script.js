@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
         zh: {
             nav_home: "首頁",
             nav_contact: "聯繫",
-            greeting: "你好，我是",
+            greeting: "嗨，我是",
             description: "對資訊領域有興趣的高二學生。",
             contact_title: "與我聯繫",
             contact_sub: "有任何想法或想單純打個招呼嗎？",
@@ -247,4 +247,5 @@ document.addEventListener("DOMContentLoaded", () => {
         .querySelectorAll("section, .scroll-hidden")
         .forEach((el) => observer.observe(el));
 });
+
 
