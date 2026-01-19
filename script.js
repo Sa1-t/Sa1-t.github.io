@@ -1,4 +1,9 @@
+if (history.scrollRestoration) {
+    history.scrollRestoration = "manual";
+}
+
 document.addEventListener("DOMContentLoaded", () => {
+    window.scrollTo(0, 0);
     const bgm = document.getElementById("bgm");
     const rickBgm = document.getElementById("rick-bgm"); 
     const musicBtn = document.getElementById("music-btn");
@@ -247,5 +252,6 @@ document.addEventListener("DOMContentLoaded", () => {
         .querySelectorAll("section, .scroll-hidden")
         .forEach((el) => observer.observe(el));
 });
+
 
 
